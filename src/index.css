@@ -1,0 +1,23 @@
+body{
+    background-color: black;
+}
+/* HERO SECTION BACKGROUND */
+.hero-section {
+  background-color: #000000;
+}
+
+/* Text colors inside hero */
+.hero-section h1,
+.hero-section p,
+.hero-section del {
+  color: #ffffff;
+}
+
+.hero-section del {
+  opacity: 0.6;
+}
+.hero-bg {
+  background-color: #000000;
+}
+
+
