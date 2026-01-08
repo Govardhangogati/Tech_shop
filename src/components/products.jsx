@@ -25,7 +25,7 @@ export const Products = () => {
     <>
 
     <div className="text-light d-flex justify-content-center mt-5">
-      <h1>Top Products</h1>
+      <h1 style={{fontWeight:'bold'}}>Top Products</h1>
     </div>
 
 
@@ -34,12 +34,14 @@ export const Products = () => {
       <div className="row d-flex justify-content-center m-5">
         {
           categories.map(cat=>(
-            <div className="col-1 m-2"><button onClick={()=>setSelectedCategory(cat)} style={{width:"100px",
+            <div className="col-1 m-2" ><button onClick={()=>setSelectedCategory(cat)} style={{width:"100px",
               backgroundColor:selectedCategory==cat?"orangered":"black",
               color:"white",
               border:"none",
               padding:'10px',
-              borderRadius:"5px"
+              borderRadius:"5px",
+              
+              
             }}>{cat}</button></div>
           ))
         }

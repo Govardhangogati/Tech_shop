@@ -14,7 +14,7 @@ export default function CenterSlider() {
     <div>
       {/* Title */}
       <div className="text-center text-white my-5">
-        <h1 className="text-2xl font-bold">Featured Products</h1>
+        <h1 className="text-2xl font-bold" style={{fontWeight:'bold'}}>Featured Products</h1>
       </div>
 
       {/* Slider */}
@@ -45,7 +45,7 @@ export default function CenterSlider() {
             <SwiperSlide key={product.id}>
               {({ isActive }) => (
 
-              <Link to={`/products/${product.id}`}> 
+              <Link to={`/products/${product.id}`} style={{textDecoration:"none"}}> 
                 <div
                   className="transition-transform duration-300 text-center p-2"
                   style={{

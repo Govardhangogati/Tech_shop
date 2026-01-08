@@ -5,7 +5,7 @@ export const Header = () => {
     <nav className="navbar  px-3 d-flex justify-content-between">
       
      
-      <Link to="/" className="navbar-brand mb-0 h1 text-light b" style={{fontSize:"30px"}}>
+      <Link to="/" className="navbar-brand mb-0 h1 text-light b" style={{fontSize:"30px",fontWeight:"bold"}}>
         Tech-Shop
       </Link>
 
