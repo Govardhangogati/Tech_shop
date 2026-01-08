@@ -45,7 +45,7 @@ export default function CenterSlider() {
             <SwiperSlide key={product.id}>
               {({ isActive }) => (
 
-              <Link> 
+              <Link to={`/products/${product.id}`}> 
                 <div
                   className="transition-transform duration-300 text-center p-2"
                   style={{

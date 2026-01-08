@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import productsData from "../utils/productsData";
+import { Link } from "react-router-dom";
 
 export default function HeroSlider() {
   const heroProducts = productsData.filter(
@@ -47,9 +48,7 @@ export default function HeroSlider() {
               </del>
             </div>
 
-            <button className="btn btn-danger me-2">
-              Shop Now
-            </button>
+            <Link to={`/products/${product.id}`}><button className="btn btn-danger me-2">Shop Now</button></Link>
             
           </div>
 
