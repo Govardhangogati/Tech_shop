@@ -1,5 +1,6 @@
 import { useState } from "react";
 import productsData from "../utils/productsData";
+import { Link } from "react-router-dom";
 
 export const Products = () => {
   
@@ -55,13 +56,17 @@ export const Products = () => {
             <div className="col-3" key={product.id}>
               <div className="card m-3 " style={{height:"490px",backgroundColor:"black",border:"1px solid white"}}>
                 
-                <div className="d-flex justify-content-center bg-dark p-3">
-                  <img
-                    src={product.images[0]}
-                    alt={product.title}
-                    style={{ width: "200px" }}
-                  />
+                <Link to={`/products/${product.id}`}>
+                  <div className="d-flex justify-content-center bg-dark p-3">
+                    <img
+                      src={product.images[0]}
+                      alt={product.title}
+                      style={{ width: "200px" }}
+                    />
                 </div>
+                </Link>
+
+                
 
                 
                 <div className="info p-3" style={{ backgroundColor: "black" }}>
