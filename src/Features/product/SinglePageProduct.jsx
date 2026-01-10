@@ -7,6 +7,11 @@ export const SinglePageProduct=()=>{
     return(
         <>
             <h1>This is Product :{id}</h1>
+            <div className="container">
+                {
+                    produ
+                }
+            </div>
         </>
     )
 }
