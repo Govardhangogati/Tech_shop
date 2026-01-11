@@ -1,16 +1,25 @@
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import productsData from "../../utils/productsData"
 import { useState } from "react"
 import reviewsData from "../../utils/reviewsData"
+import { Footer } from "../../components/Footer"
+import { Services } from "../../components/Services"
+import { ADDTOCART } from "../../REDUX/cart/CartSlice"
+import { useDispatch } from "react-redux"
 
 
 
 
 export const SinglePageProduct=()=>{
 
+
+    let dispatch=useDispatch()
     let {id}=useParams()
+    let [clickedButtons, setClickedButtons] = useState({});
 
     let product=productsData.find(pro=>pro.id==Number(id))
+
+    let sameCategory=productsData.filter(pro=>pro.category===product.category && pro.id !== product.id)
 
     let [selectedImage,setSelectedImage]=useState(product.images[0])
 
@@ -25,6 +34,14 @@ export const SinglePageProduct=()=>{
     let discountPercentage=Math.floor(dp)
 
     let [tab,setTab]=useState("Specifications")
+
+    let handleClick = (id) => {
+    setClickedButtons((prev) => ({
+      ...prev,
+      [id]: true,
+    }));
+  };
+  
 
     return(
         <>
@@ -102,13 +119,13 @@ export const SinglePageProduct=()=>{
                     </div>
                     <div>
                         <div className="mt-5" >
-                            <button style={{color:'white',backgroundColor:"orangered",border:"none",width:"200px",padding:"10px"}}>Add To Cart</button>
+                            <button onClick={()=>dispatch(ADDTOCART(product))} style={{color:'white',backgroundColor:"orangered",border:"none",width:"200px",padding:"10px"}}>Add To Cart</button>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div>
+            <div style={{marginTop:"150px"}}>
                 <div className="text-center m-5">
                 
                     {
@@ -210,11 +227,97 @@ export const SinglePageProduct=()=>{
                                 </h5>
                             </div>
                         </div>
-                    }
-                
-                
+                    }    
             </div>
+            
+            <div className="container-fluid " style={{ marginTop: "150px"}}>
+                <h2 className="text-center text-light m-5">
+                    <b>Related products</b>
+                </h2>
 
+                <div
+                    className="d-flex hide-scrollbar"
+                    style={{
+                    overflowX: "auto",
+                    gap: "20px",
+                    scrollBehavior: "smooth",
+                    paddingBottom: "20px",
+                    }}
+                >
+                    {sameCategory.map((product) => (
+                    <div
+                        key={product.id}
+                        style={{
+                        minWidth: "24%", 
+                        flex: "0 0 auto",
+                        }}
+                    >
+                        <div
+                        className="card"
+                        style={{
+                            height: "490px",
+                            backgroundColor: "black",
+                            border: "1px solid gray",
+                        }}
+                        >
+                        <Link to={`/products/${product.id}`}>
+                            <div className="d-flex justify-content-center bg-dark p-3">
+                            <img
+                                src={product.images[0]}
+                                alt={product.title}
+                                style={{ width: "200px" }}
+                            />
+                            </div>
+                        </Link>
+
+                        <div className="info p-3">
+                            <div style={{ fontSize: "12px", color: "orangered" }}>
+                            {Array.from({ length: product.rateCount }).map((_, i) => (
+                                <i key={i} className="fa-solid fa-star"></i>
+                            ))}
+                            </div>
+
+                            <h5 className="text-light">{product.title}</h5>
+                            <p style={{ color: "rgba(245,245,245,0.6)" }}>{product.info}</p>
+
+                            <hr />
+
+                            <div className="d-flex align-items-center gap-2">
+                            <b className="text-light fs-5">₹{product.finalPrice}</b>
+                            <del style={{ color: "gray" }}>
+                                ₹{product.originalPrice}
+                            </del>
+                            </div>
+
+                            <button
+                            onClick={() => handleClick(product.id)}
+                            style={{
+                                marginTop: "10px",
+                                width: "100%",
+                                padding: "10px",
+                                backgroundColor: clickedButtons[product.id]
+                                ? "green"
+                                : "orangered",
+                                color: "white",
+                                border: "none",
+                                borderRadius: "5px",
+                                fontWeight: "bold",
+                            }}
+                            >
+                            {clickedButtons[product.id] ? "Added" : "Add to Cart"}
+                            </button>
+                        </div>
+                        </div>
+                    </div>
+                    ))}
+                </div>
+            </div>
+            <div style={{marginTop:'100px'}}>
+                <Services/>
+            </div>
+            <div>
+                <Footer/>
+            </div>
         </>
     )
 }

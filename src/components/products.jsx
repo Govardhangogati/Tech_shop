@@ -1,6 +1,8 @@
 import { useState } from "react";
 import productsData from "../utils/productsData";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { ADDTOCART } from "../REDUX/cart/CartSlice";
 
 export const Products = () => {
   
@@ -12,13 +14,16 @@ export const Products = () => {
 
   let categories=["All",...new Set(productsData.map(p=>p.category))]
 
+  let dispatch=useDispatch()
+
   let viewProducts=browseProducts?productsData:selectedCategory==="All"? productsData.slice(0,11):productsData.filter(p=>p.category===selectedCategory)
 
-  let handleClick = (id) => {
+  let handleClick = (product) => {
     setClickedButtons((prev) => ({
       ...prev,
-      [id]: true,
+      [product.id]: true,
     }));
+    dispatch(ADDTOCART(product))
   };
 
   return (
@@ -65,10 +70,6 @@ export const Products = () => {
                     />
                 </div>
                 </Link>
-
-                
-
-                
                 <div className="info p-3" style={{ backgroundColor: "black" }}>
                   
                   <div style={{ fontSize: "12px", color: "orangered" }}>
@@ -104,7 +105,7 @@ export const Products = () => {
 
                   
                   <button
-                    onClick={() => handleClick(product.id)}
+                    onClick={() => handleClick(product)}
                     style={{
                       marginTop: "10px",
                       width: "100%",
