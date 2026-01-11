@@ -187,6 +187,30 @@ export const SinglePageProduct=()=>{
                         )
                         
                     }
+
+                    {
+                        tab=="Overview"&&
+                        <div className="m-5" style={{color:"lightgray"}}>
+                            <div>
+                                <h5><b className="d-flex">The <b> <h5 style={{color:"orangered", marginLeft:'5px',marginRight:'5px'}}>{product.title}</h5></b> <p> {product.info} provides fabulous sound quality </p> </b> </h5>
+                            </div>
+                            <ul>
+                                <li>sound turned to perfection</li>
+                                <li>Comfortable to wear</li>
+                                <li>Long hour playback time</li>
+                            </ul>
+                            <div className="d-flex">
+                                <h5>
+                                    <p className="d-flex flex-wrap">
+                                        buy the 
+                                        <b style={{color:"white",marginLeft:"5px",marginRight:"5px"}}> {product.title}</b>
+                                        <b style={{color:"white",marginLeft:"5px",marginRight:"5px"}}>{product.info} </b>
+                                        <p>which offers you with fabolous music experience by providing you with awesome sound quality that you ca never move on from.Enjoy perfect flexibility and mobility with amazing music quality with this headphones giving you a truly audio experience .It blends with exceptional sound quality and a range of smart features for an unrevalled listening experience.</p>
+                                    </p> 
+                                </h5>
+                            </div>
+                        </div>
+                    }
                 
                 
             </div>
