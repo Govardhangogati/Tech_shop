@@ -35,11 +35,12 @@ export const SinglePageProduct=()=>{
 
     let [tab,setTab]=useState("Specifications")
 
-    let handleClick = (id) => {
+    let handleClick = (product) => {
     setClickedButtons((prev) => ({
       ...prev,
-      [id]: true,
+      [product.id]: true,
     }));
+    dispatch(ADDTOCART(product))
   };
   
 
@@ -290,7 +291,7 @@ export const SinglePageProduct=()=>{
                             </div>
 
                             <button
-                            onClick={() => handleClick(product.id)}
+                            onClick={() => handleClick(product)}
                             style={{
                                 marginTop: "10px",
                                 width: "100%",
@@ -315,9 +316,7 @@ export const SinglePageProduct=()=>{
             <div style={{marginTop:'100px'}}>
                 <Services/>
             </div>
-            <div>
-                <Footer/>
-            </div>
+            
         </>
     )
 }

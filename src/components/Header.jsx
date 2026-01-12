@@ -1,6 +1,10 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+
+
 export const Header = () => {
+  let cartData=useSelector(state=>state.cart)
   return (
     <nav className="navbar  px-3 d-flex justify-content-between">
       
@@ -15,8 +19,8 @@ export const Header = () => {
           <i className="fas fa-search"></i>
         </Link>
 
-        <Link to="/cart" className="text-light">
-          <i className="fas fa-shopping-cart"></i>
+        <Link to="/cart" className="text-light" style={{textDecoration:"none"}}>
+          <i className="fas fa-shopping-cart"></i><sup className="bg-danger p-1" style={{borderRadius:"50%"}}>{cartData.length}</sup>
         </Link>
 
         <Link to="/signin" className="text-light">

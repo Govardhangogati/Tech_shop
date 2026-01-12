@@ -2,12 +2,12 @@ body{
     background-color: black;
     font-family: 'Roboto', sans-serif;
 }
-/* HERO SECTION BACKGROUND */
+
 .hero-section {
   background-color: #000000;
 }
 
-/* Text colors inside hero */
+
 .hero-section h1,
 .hero-section p,
 .hero-section del {
@@ -20,15 +20,19 @@ body{
 .hero-bg {
   background-color: #000000;
 }
-/* Hide scrollbar for Chrome, Edge, Safari */
+
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for Firefox */
+
 .hide-scrollbar {
-  -ms-overflow-style: none;  /* IE & Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none;  
+  scrollbar-width: none;    
+}
+.cart-scroll {
+  max-height: 450px;  
+  overflow-y: auto;   
 }
 
 
