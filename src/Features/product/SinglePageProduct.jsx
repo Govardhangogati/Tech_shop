@@ -46,7 +46,7 @@ export const SinglePageProduct=()=>{
 
     return(
         <>
-            <div className="container-fluid d-flex  " style={{color:"lightgray"}}>
+            <div className="container-fluid d-flex " style={{color:"lightgray"}}>
                 <div className="images ms-5">
                     <div className="col-2 ">
                     {

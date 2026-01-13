@@ -37,7 +37,7 @@ export const Products = () => {
 
     <div className="container">
 
-      <div className="row d-flex justify-content-center m-5">
+      <div className="row d-flex  justify-content-center m-5">
         {
           categories.map(cat=>(
             <div className="col-1 m-2" ><button onClick={()=>setSelectedCategory(cat)} style={{width:"100px",
@@ -58,7 +58,7 @@ export const Products = () => {
           let isClicked = clickedButtons[product.id]; 
 
           return (
-            <div className="col-3" key={product.id}>
+            <div className="col-3 " key={product.id}>
               <div className="card m-3 " style={{height:"490px",backgroundColor:"black",border:"1px solid white"}}>
                 
                 <Link to={`/products/${product.id}`}>
