@@ -34,6 +34,29 @@ body{
   max-height: 450px;  
   overflow-y: auto;   
 }
+.cart-scroll {
+  max-height: 420px;       
+  overflow-y: auto;
+}
+
+
+.cart-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+
+.cart-scroll {
+  scrollbar-width: none;
+}
+
+
+.cart-scroll {
+  -ms-overflow-style: none;
+}
+::selection{
+  background-color: orangered;
+  color: white;
+}
 
 
 

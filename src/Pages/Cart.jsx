@@ -1,99 +1,141 @@
 import { useDispatch, useSelector } from "react-redux";
 import { ADDTOCART, DECREMENT, REMOVE } from "../REDUX/cart/CartSlice";
+import { useNavigate } from "react-router-dom";
 
 export const Cart = () => {
-  let cartData = useSelector((state) => state.cart);
-  let dispatch = useDispatch();
+  const cartData = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
-  let totalOriginalPrice=cartData.reduce(
-    (acc,val)=>acc+val.originalPrice*val.quantity,0
-  )
+  let navigate=useNavigate()
 
-  let totalFinalPrice=cartData.reduce(
-    (acc,val)=>acc+val.finalPrice*val.quantity,0
-  )
+  const totalOriginalPrice = cartData.reduce(
+    (acc, val) => acc + val.originalPrice * val.quantity,
+    0
+  );
 
-  let discount=totalOriginalPrice-totalFinalPrice
+  const totalFinalPrice = cartData.reduce(
+    (acc, val) => acc + val.finalPrice * val.quantity,
+    0
+  );
+
+  const discount = totalOriginalPrice - totalFinalPrice;
+
+  if (cartData.length === 0) {
+    return (
+      <div className="text-light text-center mt-5">
+        <i
+          className="fa-solid fa-cart-plus"
+          style={{ fontSize: "200px", color: "orangered" }}
+        ></i>
+        <h1>Your Cart is empty</h1>
+        <button onClick={()=>navigate('/')} style={{backgroundColor:"orangered",border:"none",width:"230px",color:"white",padding:"10px",fontSize:"20px",borderRadius:'10px'}}>
+          Start Shopping
+        </button>
 
 
-  if(cartData.length===0){
-    return(
-      <div className="text-light text-center ">
-       <i class="fa-solid fa-cart-plus" style={{fontSize:"250px", margin:"100px",color:"orangered"}}></i>
-      <h1>Cart is empty</h1>
       </div>
-    )
-
+    );
   }
 
   return (
-    <>
-      <div className="container mt-5 d-flex">
-       
-        <div className="cart-scroll">
+    <div className="container mt-5 mb-5">
+      <div className="row">
+        
+        {/* LEFT : CART ITEMS */}
+        <div className="col-md-8 cart-scroll">
           {cartData.map((product) => (
             <div
               key={product.id}
-              className="product-container bg-dark col-6 mb-3"
+              className="product-container bg-dark mb-3 p-3"
               style={{ color: "lightgray" }}
             >
-              <div className="singleProduct d-flex justify-content-between">
-                <div className="image m-3">
-                  <img
-                    src={product.images[0]}
-                    alt={product.title}
-                    width="130px"
-                  />
-                </div>
+              <div className="d-flex justify-content-between align-items-center">
+                
+                <img
+                  src={product.images?.[0]}
+                  alt={product.title}
+                  width="120"
+                />
 
-                <div className="details m-3">
-                  <b>
-                    {product.title} {product.info}
-                  </b>
+                <div className="ms-3 flex-grow-1">
+                  <b>{product.title}</b>
+                  <p className="mb-1">{product.info}</p>
 
-                  <div className="price d-flex mt-3">
-                    <h4 className="m-2 text-light">
+                  <div className="d-flex align-items-center">
+                    <h5 className="text-light me-3">
                       ₹{product.finalPrice}
-                    </h4>
-                    <del>
-                      <h4 className="m-2 text-secondary">
-                        ₹{product.originalPrice}
-                      </h4>
+                    </h5>
+                    <del className="text-secondary">
+                      ₹{product.originalPrice}
                     </del>
                   </div>
 
-                  <div className="btns d-flex mt-3">
-                    <button onClick={()=>dispatch(DECREMENT(product.id))} style={{backgroundColor:"gray",color:"white",fontWeight:"bold",fontSize:"20px"}}>-</button>
-                    <button style={{backgroundColor:"black",color:"orangered",fontWeight:"bold",fontSize:"20px"}}>{product.quantity}</button>
-                    <button onClick={()=>dispatch(ADDTOCART(product))} style={{backgroundColor:"gray",color:"white",fontWeight:"bold",fontSize:"20px"}}>+</button>
+                  <div className="mt-2">
+                    <button
+                      onClick={() => dispatch(DECREMENT(product.id))}
+                      className="btn btn-secondary btn-sm" style={{border:"1px solid"}}
+                    >
+                      -
+                    </button>
+
+                    <span className="mx-2 text-danger fw-bold" >
+                      {product.quantity}
+                    </span>
+
+                    <button
+                      onClick={() => dispatch(ADDTOCART(product))}
+                      className="btn btn-secondary btn-sm" style={{border:"1px solid"}}
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
 
-                <div className="delete m-3">
-                  <i style={{cursor:"pointer"}} onClick={()=>dispatch(REMOVE(product.id))} className="fa-solid fa-trash-can"></i>
-                </div>
+                <i
+                  className="fa-solid fa-trash-can text-danger"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => dispatch(REMOVE(product.id))}
+                ></i>
               </div>
             </div>
           ))}
         </div>
-        <div className="cartDetails ms-5">
-          <h5><b>Cart Summary ({cartData.length} items)</b></h5>
-          <div className="price">
-            <div className="original">
-              <p>Original Price</p>
-              <p>{totalOriginalPrice}</p>
+
+        {/* RIGHT : CART SUMMARY */}
+        <div className="col-md-4">
+          <div className=" text-light p-4 sticky-top">
+            <h5 className="mb-5"><b>Order Summary ({cartData.length} items)</b></h5>
+            
+
+            <div className="d-flex justify-content-between ">
+              <span style={{color:"lightgray"}}>Original Price</span>
+              <span>₹{totalOriginalPrice}</span>
             </div>
-            <div className="discount">
-              <p>Discount</p>
-              <p>{discount}</p>
+
+            <div className="d-flex justify-content-between">
+              <span style={{color:"lightgray"}}>Discount</span>
+              <span className="text-success">-₹{discount}</span>
             </div>
-            <div className="delivery">
-              <p>Delivery</p>
-              <p>Free</p>
+
+            <div className="d-flex justify-content-between">
+              <span style={{color:"lightgray"}}>Delivery</span>
+              <span className="text-success">Free</span>
             </div>
+
+            <hr />
+
+            <div className="d-flex justify-content-between fw-bold fs-5">
+              <span>Total Price</span>
+              <span>₹{totalFinalPrice}</span>
+            </div>
+
+            <button className="btn  w-100 mt-3 fw-bold" style={{backgroundColor:"orangered"}}>
+              Checkout
+            </button>
           </div>
         </div>
+
       </div>
-    </>
+    </div>
   );
 };
